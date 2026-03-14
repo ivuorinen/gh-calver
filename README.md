@@ -145,6 +145,23 @@ make lint       # go vet + staticcheck
 make build      # build for the current platform
 make build-all  # cross-compile for linux/darwin/windows × amd64/arm64
 make install    # install as a local gh extension
+make release    # tag + push + goreleaser (from clean main only)
+```
+
+### Releasing
+
+`make release` automates the full release flow:
+
+1. Verifies the working tree is clean (no uncommitted changes)
+2. Verifies you are on the `main` branch
+3. Computes the next CalVer tag via `go run . next`
+4. Creates an annotated git tag
+5. Pushes the tag to origin
+6. Runs [GoReleaser](https://goreleaser.com/) to build and publish the release
+
+```sh
+# From a clean main branch
+make release
 ```
 
 ### Installing locally

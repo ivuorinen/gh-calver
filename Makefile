@@ -74,5 +74,20 @@ clean:
 dist:
 	mkdir -p dist
 
+# Create a calver release (must be on clean main branch)
+.PHONY: release
+release:
+	@if ! git diff --quiet || ! git diff --cached --quiet; then \
+		echo "Error: working tree is not clean"; exit 1; \
+	fi
+	@if [ "$$(git rev-parse --abbrev-ref HEAD)" != "main" ]; then \
+		echo "Error: not on main branch"; exit 1; \
+	fi
+	$(eval TAG := $(shell go run . next))
+	@echo "Releasing $(TAG)..."
+	git tag -a $(TAG) -m "Release $(TAG)"
+	git push origin $(TAG)
+	go run github.com/goreleaser/goreleaser/v2@latest release --clean
+
 .PHONY: all
 all: lint test build

@@ -1,3 +1,6 @@
 # Build output
 gh-calver
 dist/
+
+# Local Claude Code settings
+.claude/settings.local.json

@@ -12,10 +12,14 @@ gh-calver is a GitHub CLI extension for Calendar Versioning (CalVer) release man
 make test          # run all tests
 make test-race     # tests with race detector
 make test-verbose  # verbose test output
+make test-cov      # tests with coverage summary
 make lint          # go vet + staticcheck
 make build         # build for current platform
 make build-all     # cross-compile all platforms
 make install       # build + install as gh extension
+make uninstall     # remove locally installed extension
+make clean         # remove build artifacts
+make release       # tag + push + goreleaser (clean main only)
 make all           # lint, test, build
 ```
 
@@ -23,6 +27,7 @@ Run a single test:
 ```bash
 go test -run TestFunctionName ./cmd/
 go test -run TestFunctionName ./internal/calver/
+go test -run TestFunctionName ./internal/git/
 ```
 
 ## Architecture
@@ -34,6 +39,8 @@ Three layers with clear boundaries:
 - **`cmd/`** — CLI commands (current, next, release, bump, list). Each command gets its own `flag.FlagSet`. Global state (`ops` client, `nowFn` time function) lives in `deps.go`.
 
 Entry point: `main.go` → `cmd.Execute()` (dispatcher in `root.go`).
+
+Release builds are configured via `.goreleaser.yaml` and triggered by `make release`.
 
 ## Testing Patterns
 
