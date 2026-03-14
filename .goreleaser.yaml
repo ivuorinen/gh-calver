@@ -27,14 +27,10 @@ builds:
         goarch: arm64
 
 archives:
-  - formats: [tar.gz]
+  - formats: [binary]
     name_template: >-
       {{- .ProjectName }}_{{ .Os }}_{{ .Arch }}
       {{- if .Arm }}v{{ .Arm }}{{ end }}
-    # use zip for windows archives
-    format_overrides:
-      - goos: windows
-        formats: [zip]
 
 changelog:
   sort: asc

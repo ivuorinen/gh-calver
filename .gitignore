@@ -3,4 +3,5 @@ gh-calver
 dist/
 
 # Local Claude Code settings
+.claude/plans/*
 .claude/settings.local.json
