@@ -87,7 +87,7 @@ release:
 	@echo "Releasing $(TAG)..."
 	git tag -a $(TAG) -m "Release $(TAG)"
 	git push origin $(TAG)
-	go run github.com/goreleaser/goreleaser/v2@latest release --clean
+	@echo "Tag $(TAG) pushed. GitHub Actions will build and sign the release."
 
 .PHONY: all
 all: lint test build
