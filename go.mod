@@ -1,3 +1,5 @@
 module github.com/ivuorinen/gh-calver
 
-go 1.27.0
+go 1.24
+
+toolchain go1.27.0
